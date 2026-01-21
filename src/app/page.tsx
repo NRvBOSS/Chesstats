@@ -1,12 +1,12 @@
 import PlayerHero from "@/components/blocks/PlayerHero";
 import PlayerStats from "@/components/blocks/PlayerStats";
-import Name from "@/components/ui/PlayerName";
+import Name from "@/components/ui/PlayerSearch";
+import { getBestRating } from "@/components/utils/getBestRat";
 
 async function getPlayer(username: string) {
-  const res = await fetch(
-    `https://api.chess.com/pub/player/${username}`,
-    { next: { revalidate: 3600 } }
-  );
+  const res = await fetch(`https://api.chess.com/pub/player/${username}`, {
+    next: { revalidate: 3600 },
+  });
 
   if (!res.ok) return null;
   return res.json();
@@ -15,7 +15,7 @@ async function getPlayer(username: string) {
 async function getPlayerStats(username: string) {
   const res = await fetch(
     `https://api.chess.com/pub/player/${username}/stats`,
-    { next: { revalidate: 3600 } }
+    { next: { revalidate: 3600 } },
   );
 
   if (!res.ok) return null;
@@ -29,18 +29,16 @@ export default async function Home({
 }) {
   const { username } = await searchParams;
 
-  const [player, stats] = username
-    ? await Promise.all([
-        getPlayer(username),
-        getPlayerStats(username),
-      ])
+  const [p, stats] = username
+    ? await Promise.all([getPlayer(username), getPlayerStats(username)])
     : [null, null];
+  const bestRating = stats ? getBestRating(stats) : null;
 
   return (
     <main className="min-h-screen bg-black p-8">
       <Name />
 
-      {player && <PlayerHero player={player} />}
+      {p && <PlayerHero p={p} rating={bestRating} />}
 
       {stats && <PlayerStats stats={stats} />}
     </main>
