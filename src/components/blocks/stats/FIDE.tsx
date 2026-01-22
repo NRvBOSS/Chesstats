@@ -1,6 +1,6 @@
 "use client";
 
-import { ChessComStatsResponse } from '@/types/player';
+import { ChessComStatsResponse } from '@/lib/types/player';
 
 type Props = {
   stats: ChessComStatsResponse

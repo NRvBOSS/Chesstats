@@ -1,4 +1,4 @@
-import { PlayerWithStats } from "@/types/player";
+import { PlayerWithStats } from "@/lib/types/player";
 
 export function getBestRating(stats: PlayerWithStats["stats"] | null) {
   if (!stats) return null;

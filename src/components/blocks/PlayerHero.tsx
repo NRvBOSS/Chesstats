@@ -1,13 +1,12 @@
-import { Player } from "@/types/player";
+import { Player } from "@/lib/types/player";
 import Image from "next/image";
 
 type Props = {
-  rating: number | null;
   p: Player;
   onDetailsClick?: () => void;
 };
 
-export default function PlayerHero({ p, rating, onDetailsClick }: Props) {
+export default function PlayerHero({ p, onDetailsClick }: Props) {
   return (
     <div className="relative w-80 h-120 bg-zinc-900 rounded-3xl overflow-hidden shadow-2xl border-2 border-zinc-800">
       {/* Chess pattern background */}
@@ -33,7 +32,7 @@ export default function PlayerHero({ p, rating, onDetailsClick }: Props) {
             RATING
           </div>
           <div className="text-white text-2xl font-black">
-            {rating || "2800"}
+            {p.rating?.rating || "2800"}
           </div>
         </div>
       </div>

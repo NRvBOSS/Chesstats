@@ -1,7 +1,7 @@
 "use client";
 
 import { formatDate } from '@/components/utils/FormatDate';
-import { ChessComStatsResponse } from '@/types/player';
+import { ChessComStatsResponse } from '@/lib/types/player';
 
 type Props = {
   stats: ChessComStatsResponse
